@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+    livro-back:
+        build: .
+        image: livro-back
+        container_name: livro-back
+        depends_on:
+            - livro-db
+        command: sh -c "npm run migrate && npm run production"
+        volumes:
+            - "./livro/uploads:/usr/src/livro/uploads"
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_SCHEMA: ${DB_SCHEMA}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            APP_TOKEN: ${APP_TOKEN}
+        ports:
+            - "3000:3000"
+        restart: on-failure
+                
+    livro-db:
+        image: mysql:5.7
+        container_name: livro-db
+        depends_on:
+            - livro-adminer
+        command: "--innodb_use_native_aio=0"
+        volumes:
+             - "./livro/database:/var/lib/mysql"
+        environment:
+            MYSQL_DATABASE: ${DB_SCHEMA}
+            ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "3306:3306"
+        restart: on-failure
+                    
+    livro-adminer:
+        image: adminer:4.7
+        container_name: livro-adminer
+        restart: always
+        ports:
+            - "6542:8080"
+        restart: on-failure
