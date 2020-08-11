@@ -3,8 +3,8 @@ module.exports = {
     "development": {
         "host": "localhost",
         "username": "root",
-        "password": "admin",
-        "database": "livro_carga",
+        "password": "123",
+        "database": "juntada_ars",
         "dialect": "mysql",
         "operatorsAliases": 0,
         "timezone": "America/Recife",

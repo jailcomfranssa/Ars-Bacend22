@@ -1,12 +1,12 @@
 import { Op } from "sequelize";
-import { Correspodencia, Usuario } from "../database/models";
+import { Relatorio } from "../database/models";
 
 export default {
   add: (req, res, next) => {
     try {
-      Correspodencia.create(req.body)
+      Relatorio.create(req.body)
         .then((response) => {
-          res.status(200).json({ success: true, correspodencia: response });
+          res.status(200).json({ success: true, relatorio: response });
         })
         .catch((error) => {
           res.status(400).json({
@@ -24,14 +24,12 @@ export default {
   },
   update: (req, res, next) => {
     try {
-      Correspodencia.update(req.body, { where: { id: req.params.id } })
+      Relatorio.update(req.body, { where: { id: req.params.id } })
         .then((response) => {
-          Correspodencia.findOne({ where: { id: req.params.id } }).then(
+          Relatorio.findOne({ where: { id: req.params.id } }).then(
             (response) => {
               if (response) {
-                res
-                  .status(200)
-                  .json({ success: true, correspodencia: response });
+                res.status(200).json({ success: true, relatorio: response });
               } else {
                 res.status(404).json({
                   success: false,
@@ -58,19 +56,9 @@ export default {
   },
   list: (req, res, next) => {
     try {
-      Correspodencia.findAll({
-        attributes: {
-          exclude: ["usuarioId"],
-        },
-        include: [
-          {
-            model: Usuario,
-            as: "usuario",
-          },
-        ],
-      })
+      Relatorio.findAll({})
         .then((response) => {
-          res.status(200).json({ success: true, correspodencia: response });
+          res.status(200).json({ success: true, relatorio: response });
         })
         .catch((error) => {
           res.status(400).json({
@@ -88,12 +76,12 @@ export default {
   },
   findById: (req, res, next) => {
     try {
-      Correspodencia.findOne({
+      Relatorio.findOne({
         where: { id: req.params.id },
       })
         .then((response) => {
           if (response) {
-            res.status(200).json({ success: true, correspodencia: response });
+            res.status(200).json({ success: true, relatorio: response });
           } else {
             res.status(404).json({
               success: false,
@@ -115,4 +103,5 @@ export default {
       next(error);
     }
   },
+  ///ANEXOS
 };

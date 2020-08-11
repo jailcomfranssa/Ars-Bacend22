@@ -20,4 +20,6 @@ router.use('/processos', processoRouter)
 router.use('/responsaveis', responsavelRouter)
 router.use('/movimentacoes', movimentacaoRouter)
 
+
+
 export { router }

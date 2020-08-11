@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     Setor.associate = function (models) {
         Setor.hasMany(models.Usuario, { as: 'usuarios', foreignKey: 'setorId' })
         Setor.belongsTo(models.SetorTipo, { as: 'tipo', foreignKey: 'setorTipoId' })
-        Setor.hasMany(models.Processo, { as: 'processos', foreignKey: 'setorId' })
+        Setor.hasMany(models.Correspondencia, { as: 'correspondencia', foreignKey: 'setorId' })
     };
 
     return Setor;

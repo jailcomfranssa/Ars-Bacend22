@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('AnexoMovimentacao', {
+        return queryInterface.createTable('AnexoCorrespodencia', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -16,11 +16,11 @@ module.exports = {
                 allowNull: true,
                 type: Sequelize.TEXT
             },
-            movimentacaoId: {
+            correspodenciaId: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
                 references: {
-                    model: 'Movimentacao',
+                    model: 'Correspodencia',
                     key: 'id'
                 }
             },
@@ -37,6 +37,30 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('AnexoMovimentacaos');
+        return queryInterface.dropTable('AnexoCorrespodencias');
     }
 };
+
+
+// module.exports = (sequelize, DataTypes) => {
+//   const AnexoCorrespodencia = sequelize.define(
+//     "AnexoCorrespodencia",
+//     {
+//       resultadoCorreios: DataTypes.STRING,
+//       arqiovoAR: DataTypes.TEXT,
+//       correspodenciaId: DataTypes.INTEGER,
+//     },
+//     {
+//       freezeTableName: true,
+//     }
+//   );
+
+//   AnexoCorrespodencia.associate = function (models) {
+//     AnexoCorrespodencia.belongsTo(models.Correspodencia, {
+//       as: "correspodencia",
+//       foreignKey: "correspodenciaId",
+//     });
+//   };
+
+//   return AnexoCorrespodencia;
+// };
